@@ -9,6 +9,8 @@
 #define MONITOR_FINE_FOR_ANY_SHORTADDR 0xffff
 
 #include <stdint.h>
+#include "hm_zigbeeInfohand.h"
+#include "hm_app.h"
 
 //#define ZIGBEE_MODEID_LEN	16
 
@@ -110,7 +112,6 @@ typedef struct
 	uint8_t level;
 } CURTAIN_MOTOR_APP;
 
-//����zigbee�豸�ϱ�ʱ
 typedef union
 {
 	TEMP_STA tempValue;
@@ -125,10 +126,11 @@ typedef union
 	CSTRGB_STA cstRgbValue;
 	DOOR_STA doorValue;
 	CURTAIN_MOTOR_APP curtainMoValue;
-	AIR_STA_APP airValue;
+	// AIR_STA_APP airValue;
 } DEV_DATA;
 
 typedef uint8_t EmberEUI64[8];
+#define ZIGBEE_MODEID_LEN 16
 
 typedef struct
 {

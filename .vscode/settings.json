@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "hm_uartcmdexecute.h": "c"
+        "hm_uartcmdexecute.h": "c",
+        "hm_zigbeeinfohand.h": "c",
+        "hm_app.h": "c",
+        "hm_otadefine.h": "c",
+        "stdint.h": "c"
     }
 }
