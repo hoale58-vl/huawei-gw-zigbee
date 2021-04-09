@@ -4,6 +4,17 @@
         "hm_zigbeeinfohand.h": "c",
         "hm_app.h": "c",
         "hm_otadefine.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "hm_main.h": "c",
+        "string.h": "c",
+        "serial.h": "c",
+        "__locale": "c",
+        "__string": "c",
+        "regex": "c",
+        "string": "c",
+        "string_view": "c",
+        "array": "c",
+        "iterator": "c",
+        "vector": "c"
     }
 }

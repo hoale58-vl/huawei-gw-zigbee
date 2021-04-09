@@ -1,12 +1,5 @@
 #include "hm_uartCmdExecute.h"
-#include <time.h>
-#include <sys/time.h>
-
 #include "hm_otaDefine.h"
-
-#include <pthread.h>
-#include <errno.h>
-#include <sys/stat.h>
 
 #define UART_DEBUG_ENABLE
 
@@ -277,15 +270,6 @@ int userUartSendWithDebugFunc(unsigned char *data, int len)
 
 	char outTxHex[150];
 	uint8_t i;
-
-#if defined(UART_DEBUG_ENABLE)
-	memset(outTxHex, '\0', 150);
-	for (i = 0; i < len; i++)
-	{
-		sprintf(outTxHex, "%s %02x", outTxHex, data[i]);
-	}
-	PRT("uart tx:%s\r\n", outTxHex); //printf
-#endif
 
 	ret = XmWriteBuf(data, len);
 	return ret;
@@ -1347,7 +1331,6 @@ void userFillUartCmdForColorTemperatureWY(uint16_t shortAddr, uint8_t ep, uint16
 	uint16_t color_x;
 	uint16_t color_y;
 	uint8_t tempLevel;
-	//hmzColorRgbToXY(r,g,b,&color_x,&color_y,&tempLevel);
 	ColorTemperature_wy = 1000000 / w;
 	inPayload[0] = MOVE_COLOR_TEMPERATURE;
 	inPayload[1] = ColorTemperature_wy & 0xff;
@@ -2755,7 +2738,6 @@ void uartRcvDataDeal(uint8_t *data, uint16_t dataLen)
 	uint8_t index, tempOnline;
 	uint16_t shortAddr, clusterId, attrId, alarmStatus, attrId2;
 	uint16_t alarmCluster;
-	uint16_t alarmCluster;
 	uint8_t alarmCode;
 	uint8_t cmdId;
 	uint8_t aceCom, armMode;
@@ -4008,17 +3990,7 @@ void uart_work_task_init(void)
 				}
 			}
 			else
-			{ //rcvLen>1
-				//printf("rcvLen=%d\r\n",rcvLen);
-#if defined(UART_DEBUG_ENABLE)
-				PRT("uart rcv hex:"); //PRT printf
-				for (i = 0; i < rcvLen; i++)
-				{
-					PRT("%02x ", uartRXData[0].data[i]); //rcvBuf
-				}
-				PRT("\r\n");
-#endif
-
+			{
 				if (devOtaUpdateingFlag == 0)
 				{
 					if (uartRXData[0].data[rcvLen - 1] == 'C')

@@ -8,9 +8,13 @@
 #define MONITOR_FIND_FOR_ZC_SHORTADDR 0
 #define MONITOR_FINE_FOR_ANY_SHORTADDR 0xffff
 
+#include <time.h>
+#include <sys/time.h>
+
+#include <pthread.h>
+#include <errno.h>
+#include <sys/stat.h>
 #include <stdint.h>
-#include "hm_zigbeeInfohand.h"
-#include "hm_app.h"
 
 //#define ZIGBEE_MODEID_LEN	16
 
@@ -354,9 +358,32 @@ typedef enum
 	ZB_NET_WORK_PERMIT_JOINING
 } ZIGBEE_NET_STATION;
 
+typedef struct
+{
+	uint8_t ServerConnected;
+} DEV_MYSELF_INFO;
+
+typedef struct
+{
+	uint32_t times;
+} EP_DEV;
+
+typedef struct
+{
+	uint8_t mac[8];
+	uint8_t devType;
+	uint8_t index;
+	uint8_t shortAddr;
+	uint8_t onOffLineState;
+	uint8_t onLine;
+	EP_DEV epList[1];
+	uint32_t lastCommunicationTimes;
+} HM_DEV_RAM_LIST;
+
 //define all light groups
 #define ALL_LIGHT_GROUPS 12
 #define GROUPS_ADDR 1
+#define NO_DEV_NEED_UPDATE_IMAGE 1
 
 void transportUartHexDataForReadEnterTestMode(void);
 void transportUartHexDataForReadIlluminance(void);
@@ -365,6 +392,7 @@ void userFillUartCmdForPermitJoin(uint8_t joinTime, uint8_t *userId, uint8_t *us
 void fillUartCmdMonitor(uint8_t cmd, uint16_t shortAddr, uint8_t ep, uint8_t *cpcmdData, uint8_t cpcmdLen);
 
 void uart_work_task_init(void);
+void execute_player_voice_thread(void);
 
 extern void *ota_thread(void *unused);
 

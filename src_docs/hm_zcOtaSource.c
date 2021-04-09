@@ -1,12 +1,4 @@
-//#include "qcom_common.h"
-//#include "qca_json.h"
-#include "hm_zigbeeInfohand.h"
-#include "string.h"
 #include "hm_otaDefine.h"
-#include "hm_uartCmdExecute.h"
-#include <sys/stat.h>
-#include <stdio.h>
-#include "hm_app.h"
 
 extern DEV_OTA_STATION otaStationInfo;
 uint8_t zcXmodemStation;
